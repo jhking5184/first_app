@@ -1,0 +1,310 @@
+# on linux
+# install or update RubyGems via apt
+sudo apt-get install rubygems
+
+# install rails
+sudo gem install rails
+
+# check gem
+gem -v
+
+# check packages
+gem list
+
+# install mysql
+download from dev.mysql.com
+jhkijhki@gmail.com
+Wk120154
+(get 32-bit for Linux generic)
+MySQL-server-5.6.10-1.linux_glibc2.5.i386.rpm
+
+#(no rpm found...)
+#now get alien to convert .rpm to .deb
+sudo ap-get install alien
+
+To convert .rpm to debian
+
+alien -k MySQL-server-5.6.10-1.linux_glibc2.5.i386.rpm
+
+To install .deb file
+dbkg -i MySQL-server-5.6.10-1.linux_glibc2.5.i386.deb
+
+#(not successful), so do:
+sudo apt-get mysql-client-core-5.5
+sudo apt-get mysql-server-5.5
+(mysql passwd: Wk120154)
+
+mysql -v
+
+mysql -u root -p
+(enter passwd)
+
+mysql> show databases;
+mysql> exit
+
+(now install ruby mysql)
+sudo gem install mysql2
+
+# to check mysql2 installed
+gem list
+(failed, check 
+ /usr/lib/ruby/gems/1.8/gems/mysql2-0.3.11/ext/mysql2/gem_make.out
+)
+find out what the switches mean by doing a rpm --help or tar --help from the command line.
+
+# create a rail project
+cd ~
+mkdir Sites; cd Sites
+rails new my_app
+(failed, asking to:
+Make sure that `gem install tzinfo -v '0.3.37'` succeeds before bundling.
+)
+so do:
+gem list
+... see
+tzinfo (0.3.36)
+
+sudo gem install tzinfo -v '0.3.37'
+[sudo] password for jhk: Wk120154!123
+Successfully installed tzinfo-0.3.37
+Installing ri documentation for tzinfo-0.3.37
+1 gem installed
+
+rm -rf my_app
+rails new my_app
+(failed, asking to:
+Make sure that `gem install coffee-script-source -v '1.6.1'` succeeds before
+bundling.
+Make sure that `gem install execjs -v '1.4.0'` succeeds before bundling.
+Make sure that `gem install coffee-script -v '2.2.0'` succeeds before bundling
+Make sure that `gem install coffee-rails -v '3.2.2'` succeeds before bundling.
+Make sure that `gem install jquery-rails -v '2.2.1'` succeeds before bundling.
+Make sure that `gem install sass -v '3.2.7'` succeeds before bundling.
+Make sure that `gem install sass-rails -v '3.2.6'` succeeds before bundling.
+Make sure that `gem install sqlite3 -v '1.3.7'` succeeds before bundling.
+Make sure that `gem install uglifier -v '1.3.0'` succeeds before bundling.
+
+sudo gem install coffee-script-source -v '1.6.1'
+Successfully installed coffee-script-source-1.6.1
+Installing ri documentation for coffee-script-source-1.6.1
+1 gem installed
+
+sudo gem install execjs -v '1.4.0'
+Successfully installed execjs-1.4.0
+Installing ri documentation for execjs-1.4.0
+1 gem installed
+
+sudo gem install coffee-script -v '2.2.0'
+Successfully installed coffee-script-2.2.0
+Installing ri documentation for coffee-script-2.2.0
+1 gem installed
+
+sudo gem install coffee-rails -v '3.2.2'
+Successfully installed coffee-rails-3.2.2
+Installing ri documentation for coffee-rails-3.2.2
+1 gem installed
+
+sudo gem install jquery-rails -v '2.2.1'
+Successfully installed jquery-rails-2.2.1
+Installing ri documentation for jquery-rails-2.2.1
+1 gem installed
+
+sudo gem install sass -v '3.2.7'
+Successfully installed sass-3.2.7
+Installing ri documentation for sass-3.2.7
+1 gem installed
+
+sudo gem install sass-rails -v '3.2.6'
+Successfully installed sass-rails-3.2.6
+Installing ri documentation for sass-rails-3.2.6
+1 gem installed
+
+now, sqlite is causing some problem --
+had to do:
+sudo apt-get install yum
+sudo yum install sqlite-devel
+(yum can not find sqlite-devel)
+do:
+sudo apt-get install libsqlite3-dev
+then:
+sudo gem install sqlite3 -v '1.3.7'
+Building native extensions.  This could take a while...
+Successfully installed sqlite3-1.3.7
+Installing ri documentation for sqlite3-1.3.7
+1 gem installed
+
+sudo gem install uglifier -v '1.3.0'
+Successfully installed uglifier-1.3.0
+Installing ri documentation for uglifier-1.3.0
+1 gem installed
+
+rails new my_app
+(finally succeed)
+Your bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.
+
+(create a bunch of files and dirs:)
+jhk@jhk-Latitude-D610:~/Sites/my_app$ lx
+./    config/    doc/          .gitignore  public/      script/  vendor/
+../   config.ru  Gemfile       lib/        Rakefile     test/
+app/  db/        Gemfile.lock  log/        README.rdoc  tmp/
+
+# when running :
+rails s
+
+got:
+/usr/lib/ruby/gems/1.8/gems/execjs-1.4.0/lib/execjs/runtimes.rb:51:in `autodetect': Could not find a JavaScript runtime.
+
+to resolve:
+sudo apt-get install nodejs
+
+# re-run (rails s) is now successful w/ WEBrick: 
+
+jhk@jhk-Latitude-D610:~/Sites/my_app$ rails s
+=> Booting WEBrick
+=> Rails 3.2.12 application starting in development on http://0.0.0.0:3000
+=> Call with -d to detach
+=> Ctrl-C to shutdown server
+[2013-03-13 19:25:47] INFO  WEBrick 1.3.1
+[2013-03-13 19:25:47] INFO  ruby 1.8.7 (2011-06-30) [i686-linux]
+[2013-03-13 19:25:52] INFO  WEBrick::HTTPServer#start: pid=27606 port=3000
+
+
+# run: rails g[enerate] controller Say
+
+Install a package
+rpm –ivh packagename
+upgrade a package
+rpm –Uvh packagename
+
+create a tar file
+tar –cvf myfiles.tar mydir/
+(add z if you are dealing with or creating .tgz (.tar.gz) files)
+
+standard install from source
+tar –xvzf Apackage.tar.gz
+cd Apackage
+./configure
+make
+make install 
+
+====== 03/15/2013 following: Installation Ruby on Rails for Ubuntu .pdf =====
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install aptitude
+
+sudo aptitude install aptitude build-essential git-core curl
+bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
+(above two cmds did nothing, possibly all had already installed)
+
+
+sudo aptitude install build-essential openssl libreadline6 libreadline6-dev zlib1g zlib1g-dev zlib libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison
+
+rvm install 1.9.2
+rvm --default use 1.9.2
+ruby -v
+
+rvm install 1.9.3 --with-openssl-dir=$HOME/.rvm.usr
+rvm --default use 1.9.3 
+ruby -v
+
+rvm use 1.9.3@rails3tutorial2ndEd --create --default
+Using /home/jhk/.rvm/gems/ruby-1.9.3-p392 with gemset rails3tutorial2ndEd
+
+gem install rails -v 3.2.3
+(using sudo will not install correctly into local .rvm dir)
+
+
+===== 03/15/2013 Install Git (based on git-scm.com/book/ch1-4.html) =====
+
+(yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel)
+or
+sudo apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
+
+=BEGIN
+if from scratch, get the source and compile the install:
+
+http://git-scm.com/download
+
+Then, compile and install:
+
+$ tar -zxf git-1.7.2.2.tar.gz
+$ cd git-1.7.2.2
+$ make prefix=/usr/local all
+$ sudo make prefix=/usr/local install
+
+After this is done, you can also get Git via Git itself for updates:
+
+$ git clone git://git.kernel.org/pub/scm/git/git.git
+
+=END
+
+after git install/update (at this writing, 20130315:
+$ git --version
+git version 1.7.9.5
+
+first time git system setup:
+$ git config --global user.name "jhking5184"
+$ git config --global user.email jhkijhki@gmail.com
+$ git config --global alias.co checkout
+$ git config --global core.editor "subl -w"
+
+first time repository setup:
+$ cd ~/rails_projects/first_app/
+$ git init
+Initialized empty Git repository in /home/jhk/rails_projects/first_app/.git/
+
+verify .gitignore for files/dir to be ignored for git source control
+(this file was created by rails new <project>)
+
+git add and commit:
+$ cd ~/rails_projects/first_app/
+$ git add .
+$ git status
+$ git commit -m "Initial commit"
+$ git log
+
+$ git checkout -f    # force overwrite the current changes
+$ git status
+
+
+after sign-up to github:
+jhking5184
+Wk120154!123
+jhkijhki@gmail.com
+
+create repository, first_app, from command line:
+
+$ touch README.md
+$ git init
+$ git add README.md
+$ git commit -m "first commit"
+$ git remote add origin https://github.com/jhking5184/first_app.git
+
+to do git remote, we need to set up ssh keys first:
+$ ssh-keygen -t rsa -C "jhkijhki@gmail.com"
+passphrase: Wk120154
+
+to get clip:
+$ sudo apt-get install geomview
+
+$ clip < ~/.ssh/id_rsa.pub
+(not working, use xterm GUI copy/paste)
+
+$ git remote add origin git@github.com:jhking5184/first_app.git
+$ git push -u origin master
+(this will prompt for asking passphrase)
+Counting objects: 61, done.
+Compressing objects: 100% (48/48), done.
+Writing objects: 100% (61/61), 25.77 KiB, done.
+Total 61 (delta 2), reused 0 (delta 0)
+To git@github.com:jhking5184/first_app.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
+
+$ git checkout -b modify-README
+$ git branch
+
+$ git mv README.rdoc README.md
+(edit the README.md)
+$ git commit -a -m "Improve the README file"
+
